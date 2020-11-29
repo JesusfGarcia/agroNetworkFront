@@ -1,0 +1,33 @@
+.containerGrid {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-areas:
+    "header header header header"
+    "sidebar contenido contenido contenido"
+    "sidebar contenido contenido contenido";
+  grid-template-columns: 300px repeat(3, 1fr);
+  grid-template-rows: 64px 1fr 1fr;
+}
+
+.header {
+  grid-area: header;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.sidebarContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+}
+
+.sidebarButtons {
+  margin-bottom: 5px !important;
+}
+
+.contenido {
+  grid-area: contenido;
+}

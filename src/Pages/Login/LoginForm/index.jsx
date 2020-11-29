@@ -9,7 +9,27 @@ import {
   Button,
 } from "@material-ui/core";
 
+import { actions } from "./actions";
+import { reducer } from "./reducer";
+import { initialState } from "./constants";
+
+import axios from "axios";
+
+import apiUrl from "../../../utils/APIURL";
+
 export default function () {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  const Login = async () => {
+    try {
+      dispatch({ type: actions.saveUser });
+      const { data } = axios.post(`${apiUrl}/login`, state.user);
+      dispatch({ type: actions.saveUserSuccess });
+    } catch (error) {
+      dispatch({ type: actions.saveUserError });
+      alert("Ocurrió un error en la aplicación");
+    }
+  };
   return (
     <>
       <Card style={{ width: "500px" }}>
@@ -32,7 +52,12 @@ export default function () {
         </CardContent>
         <CardActions>
           <div className="centerCard">
-            <Button variant="contained" color="primary" disableElevation>
+            <Button
+              onClick={() => Login()}
+              variant="contained"
+              color="primary"
+              disableElevation
+            >
               Ingresar
             </Button>
           </div>
