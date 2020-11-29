@@ -3,5 +3,4 @@ export const actions = {
   saveUser: "SAVE_USER",
   saveUserSuccess: "SAVE_USER_SUCCESS",
   saveUserError: "SAVE_USER_ERROR",
-  toggleEnterprise: "TOGGLE_ENTERPRISE",
 };

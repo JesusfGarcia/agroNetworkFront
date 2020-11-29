@@ -15,8 +15,44 @@ import { actions } from "./actions";
 import { initialState } from "./constants";
 import { reducer } from "./reducer";
 
+import axios from "axios";
+
+import apiUrl from "../../../utils/APIURL";
+
 export default function () {
   const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  const Register = async () => {
+    try {
+      dispatch({ type: actions.saveUser });
+      const { data } = axios.post(`${apiUrl}/users`, state.user);
+      dispatch({ type: actions.saveUserSuccess });
+    } catch (error) {
+      dispatch({ type: actions.saveUserError });
+      alert("Ocurrió un error en la aplicación");
+    }
+  };
+
+  const setUser = (e) => {
+    let { name, value } = e.target;
+
+    dispatch({ type: actions.setUser, name, payload: value });
+  };
+
+  const setPhoto = (e) => {
+    let reader = new FileReader();
+
+    reader.onload = function (e) {
+      let filePreview = e.target.result;
+      dispatch({
+        type: actions.setUser,
+        name: "img",
+        payload: filePreview,
+      });
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+  };
   return (
     <>
       <Card style={{ width: "500px" }}>
@@ -24,15 +60,37 @@ export default function () {
           <Typography color="primary" align="center" variant="h3">
             Registro
           </Typography>
-          <TextField type="text" label="Nombre" fullWidth margin="normal" />
           <TextField
+            name="name"
+            onChange={setUser}
+            value={state.user.name}
+            type="text"
+            label="Nombre"
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="email"
+            onChange={setUser}
+            value={state.user.email}
             type="email"
             label="Correo Electronico"
             fullWidth
             margin="normal"
           />
-          <TextField type="phone" label="Telefono" fullWidth margin="normal" />
           <TextField
+            name="phone"
+            onChange={setUser}
+            value={state.user.phone}
+            type="phone"
+            label="Telefono"
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="password"
+            onChange={setUser}
+            value={state.user.password}
             type="password"
             label="Contraseña"
             fullWidth
@@ -60,36 +118,36 @@ export default function () {
                 }}
               >
                 <TextField
+                  name="state"
+                  onChange={setUser}
+                  value={state.user.state}
                   type="text"
-                  label="Nombre de la empresa"
+                  label="Estado"
                   margin="normal"
                 />
                 <TextField
+                  name="city"
+                  onChange={setUser}
+                  value={state.user.city}
                   type="text"
-                  label="Telefono de la empresa"
+                  label="Ciudad"
                   margin="normal"
                 />
               </div>
 
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <TextField type="text" label="Estado" margin="normal" />
-                <TextField type="text" label="Ciudad" margin="normal" />
-              </div>
-
               <TextField
+                name="address"
+                onChange={setUser}
+                value={state.user.address}
                 type="text"
                 label="Dirección"
                 fullWidth
                 margin="normal"
               />
               <TextField
+                name="turn"
+                onChange={setUser}
+                value={state.user.turn}
                 type="text"
                 label="Giro de la empresa"
                 multiline
@@ -97,20 +155,19 @@ export default function () {
                 margin="normal"
               />
               <TextField
+                name="description"
+                onChange={setUser}
+                value={state.user.description}
                 type="text"
                 label="Descripción general"
                 multiline
                 fullWidth
                 margin="normal"
               />
-
               <TextField
-                type="text"
-                label="Correo de contacto"
-                fullWidth
-                margin="normal"
-              />
-              <TextField
+                name="interestReason"
+                onChange={setUser}
+                value={state.user.interestReason}
                 type="text"
                 label="¿Por qué le interesa promocionar sus productos o servicios desde AgroNetwork?"
                 multiline
@@ -118,12 +175,18 @@ export default function () {
                 fullWidth
                 margin="normal"
               />
+              <input type="file" onChange={setPhoto} />
             </>
           )}
         </CardContent>
         <CardActions>
           <div className="centerCard">
-            <Button variant="contained" color="primary" disableElevation>
+            <Button
+              onClick={Register}
+              variant="contained"
+              color="primary"
+              disableElevation
+            >
               Registrarme
             </Button>
           </div>

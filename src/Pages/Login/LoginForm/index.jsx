@@ -30,6 +30,12 @@ export default function () {
       alert("Ocurrió un error en la aplicación");
     }
   };
+
+  const setUser = (e) => {
+    let { name, value } = e.target;
+
+    dispatch({ type: actions.setUser, name, payload: value });
+  };
   return (
     <>
       <Card style={{ width: "500px" }}>
@@ -38,12 +44,18 @@ export default function () {
             Login
           </Typography>
           <TextField
+            name="email"
+            value={state.user.email}
+            onChange={setUser}
             type="email"
             label="Correo Electronico"
             fullWidth
             margin="normal"
           />
           <TextField
+            name="password"
+            value={state.user.password}
+            onChange={setUser}
             type="password"
             label="Contraseña"
             fullWidth
