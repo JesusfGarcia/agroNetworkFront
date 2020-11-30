@@ -29,6 +29,7 @@ export const reducer = (state, action) => {
     case actions.saveUserSuccess:
       return {
         ...state,
+        user: initialState.user,
         buttonText: "Registrarme",
         saveUserLoading: false,
         saveUserError: null,

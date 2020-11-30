@@ -17,15 +17,17 @@ import axios from "axios";
 
 import apiUrl from "../../../utils/APIURL";
 
-export default function () {
+export default function NormalRegister() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  const Register = async () => {
+  const Register = async ({ history }) => {
     try {
       dispatch({ type: actions.saveUser });
-      const { data } = axios.post(`${apiUrl}/users`, state.user);
+      const { data } = await axios.post(`${apiUrl}/api/agro/users`, state.user);
       dispatch({ type: actions.saveUserSuccess });
+      alert("Se ha registrado correctamente");
     } catch (error) {
+      console.log(error);
       dispatch({ type: actions.saveUserError });
       alert("Ocurrió un error en la aplicación");
     }

@@ -1,5 +1,18 @@
 import * as React from "react";
 
-export default function () {
-  return <div>Pantalla de inicio</div>;
+import { Typography, Button } from "@material-ui/core";
+
+import DsContainer from "../../Components/DsContainer";
+import HeaderPart from "../../Components/HeaderPart";
+
+export default function Principal() {
+  return (
+    <DsContainer>
+      <HeaderPart>
+        <Typography color="textSecondary" variant="h4">
+          AgroNetwork
+        </Typography>
+      </HeaderPart>
+    </DsContainer>
+  );
 }

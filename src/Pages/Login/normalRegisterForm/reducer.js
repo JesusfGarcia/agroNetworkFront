@@ -1,4 +1,5 @@
 import { actions } from "./actions";
+import {initialState} from './constants';
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -20,6 +21,7 @@ export const reducer = (state, action) => {
     case actions.saveUserSuccess:
       return {
         ...state,
+        user: initialState.user,
         buttonText: "Registrarme",
         saveUserLoading: false,
         saveUserError: null,

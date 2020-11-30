@@ -8,20 +8,20 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./normalRegisterForm";
 import VipRegisterForm from "./VipRegisterForm";
 
-export default function () {
+export default function Container({ history }) {
   const [formType, setFormType] = React.useState("login");
 
   const renderizer = () => {
     if (formType === "login") {
-      return <LoginForm />;
+      return <LoginForm history={history} />;
     }
 
     if (formType === "register") {
-      return <RegisterForm />;
+      return <RegisterForm history={history} />;
     }
 
     if (formType === "vip") {
-      return <VipRegisterForm />;
+      return <VipRegisterForm history={history} />;
     }
   };
 

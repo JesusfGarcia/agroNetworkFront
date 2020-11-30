@@ -17,17 +17,24 @@ import axios from "axios";
 
 import apiUrl from "../../../utils/APIURL";
 
-export default function () {
+export default function LoginForm({ history }) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const Login = async () => {
     try {
       dispatch({ type: actions.saveUser });
-      const { data } = axios.post(`${apiUrl}/login`, state.user);
+      const { data } = await axios.post(`${apiUrl}/api/agro/login`, state.user);
+      console.log(data);
       dispatch({ type: actions.saveUserSuccess });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("rol", data.user.role);
+      history.push("/home/Principal");
     } catch (error) {
-      dispatch({ type: actions.saveUserError });
-      alert("Ocurrió un error en la aplicación");
+      dispatch({
+        type: actions.saveUserError,
+        payload: "Crédenciales no válidas",
+      });
+      alert("Credenciales no válidas");
     }
   };
 

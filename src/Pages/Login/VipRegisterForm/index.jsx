@@ -19,16 +19,19 @@ import axios from "axios";
 
 import apiUrl from "../../../utils/APIURL";
 
-export default function () {
+export default function VIPRegister({ history }) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const Register = async () => {
     try {
       dispatch({ type: actions.saveUser });
-      const { data } = axios.post(`${apiUrl}/users`, state.user);
+      const { data } = await axios.post(`${apiUrl}/api/agro/users`, state.user);
       dispatch({ type: actions.saveUserSuccess });
+      console.log(data);
+      alert("Se ha registrado correctamente");
     } catch (error) {
-      dispatch({ type: actions.saveUserError });
+      dispatch({ type: actions.saveUserError, payload: "valió madres" });
+      console.log(error);
       alert("Ocurrió un error en la aplicación");
     }
   };
