@@ -19,4 +19,8 @@ export const initialState = {
       userId: 1,
     },
   },
+  imgChanged: false,
+  loading: false,
+  reload: false,
+  buttonText: "Actualizar Perfil",
 };

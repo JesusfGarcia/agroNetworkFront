@@ -1,0 +1,54 @@
+.profileContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  margin-right: 20px;
+}
+
+.imageContainer img {
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  border: 5px solid #81c784;
+  margin-bottom: 10px;
+}
+
+.imageContainer input[type="file"]#nuestroinput {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.imageContainer label[for="nuestroinput"] {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #0093c4;
+  display: inline-block;
+  transition: all 0.5s;
+  cursor: pointer;
+  padding: 15px 40px !important;
+  text-transform: uppercase;
+  width: fit-content;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

@@ -1,3 +1,3 @@
-const apiurl = "https://278e6f289b48.ngrok.io";
+const apiurl = "https://035614681dfc.ngrok.io";
 
 export default apiurl;
