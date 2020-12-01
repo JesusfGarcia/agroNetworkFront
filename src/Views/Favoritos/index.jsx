@@ -42,8 +42,9 @@ export default function Favoritos() {
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            flexWrap: "wrap",
           }}
         >
           <CircularProgress />

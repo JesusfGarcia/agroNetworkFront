@@ -15,4 +15,7 @@ export const initialState = {
   loadingForm: false,
   reload: false,
   open: false,
+  edit: false,
+  isImageChanged: false,
+  textButton: "Publicar",
 };

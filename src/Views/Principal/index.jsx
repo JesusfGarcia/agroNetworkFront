@@ -52,8 +52,9 @@ export default function Principal() {
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            flexWrap: "wrap",
           }}
         >
           {state.products.map((item, idx) => {

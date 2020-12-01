@@ -15,8 +15,12 @@ import { StoreContext } from "./index";
 
 import { actions } from "./actions";
 
+import APIURL from "../../utils/APIURL";
+
 export default function FormMiTienda() {
-  const { state, dispatch, CrearOferta } = React.useContext(StoreContext);
+  const { state, dispatch, CrearOferta, EditarOferta } = React.useContext(
+    StoreContext
+  );
 
   const setForm = (e) => {
     const { name, value } = e.target;
@@ -38,6 +42,9 @@ export default function FormMiTienda() {
         payload: [filePreview],
       });
     };
+    dispatch({
+      type: actions.changeImage,
+    });
 
     reader.readAsDataURL(e.target.files[0]);
   };
@@ -166,11 +173,19 @@ export default function FormMiTienda() {
           fullWidth
         />
         <div className="imgContainer">
-          <img
-            className="image"
-            src={state.product.images[0]}
-            alt="Sin imagen seleccionada"
-          />
+          {state.edit && !state.isImageChanged ? (
+            <img
+              className="image"
+              src={`${APIURL}${state.product.images[0]}`}
+              alt="Sin imagen seleccionada"
+            />
+          ) : (
+            <img
+              className="image"
+              src={state.product.images[0]}
+              alt="Sin imagen seleccionada"
+            />
+          )}
           <label for="nuestroinput">Subir Imagen</label>
           <input onChange={setPhoto} name="img" type="file" id="nuestroinput" />
         </div>
@@ -182,8 +197,11 @@ export default function FormMiTienda() {
         >
           Cancelar
         </Button>
-        <Button onClick={CrearOferta} color="primary">
-          Publicar
+        <Button
+          onClick={state.edit ? EditarOferta : CrearOferta}
+          color="primary"
+        >
+          {state.textButton}
         </Button>
       </DialogActions>
     </Dialog>

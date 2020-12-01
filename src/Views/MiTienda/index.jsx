@@ -34,8 +34,42 @@ export default function Store() {
     getMyProducts();
   }, [state.reload]);
 
+  const EditarOferta = async () => {
+    const { saveProduct, saveProductSuccess, saveProductError } = actions;
+    await petition({
+      dispatch,
+      first: saveProduct,
+      success: saveProductSuccess,
+      fail: saveProductError,
+      method: "put",
+      url: `/offers/${state.product.id}`,
+      data: state.product,
+    });
+  };
+
+  const EliminarOferta = async (id) => {
+    const { saveProduct, saveProductSuccess, saveProductError } = actions;
+    await petition({
+      dispatch,
+      first: saveProduct,
+      success: saveProductSuccess,
+      fail: saveProductError,
+      method: "delete",
+      url: `/offers/${id}`,
+    });
+  };
+
   const CrearOferta = async () => {
     const { saveProduct, saveProductSuccess, saveProductError } = actions;
+    let body;
+    if (state.isImageChanged) {
+      body = state.product;
+    } else {
+      body = {
+        ...state.product,
+        images: null,
+      };
+    }
     await petition({
       dispatch,
       first: saveProduct,
@@ -43,12 +77,14 @@ export default function Store() {
       fail: saveProductError,
       method: "post",
       url: "/offers",
-      data: state.product,
+      data: body,
     });
   };
   return (
     <DsContainer>
-      <StoreContext.Provider value={{ state, dispatch, CrearOferta }}>
+      <StoreContext.Provider
+        value={{ state, dispatch, CrearOferta, EditarOferta, EliminarOferta }}
+      >
         <div className="headerPart">
           <Typography color="textSecondary" variant="h4">
             Bienvenido a su tienda
@@ -71,12 +107,40 @@ export default function Store() {
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
+                  flexDirection: "row",
+                  justifyContent: "space-evenly",
+                  flexWrap: "wrap",
                 }}
               >
-                {state.products.map((item, idx) => {
-                  return <ProductItem item={{ ...item.offer }} key={idx} />;
+                {state.myProducts.map((item, idx) => {
+                  return (
+                    <div key={idx}>
+                      <ProductItem item={{ ...item }} key={idx} />
+                      <div>
+                        <Button
+                          size="large"
+                          color="secondary"
+                          variant="contained"
+                          onClick={() => EliminarOferta(item.id)}
+                        >
+                          Eliminar
+                        </Button>
+                        <Button
+                          size="large"
+                          variant="contained"
+                          color="primary"
+                          onClick={() =>
+                            dispatch({
+                              type: actions.editProduct,
+                              payload: item,
+                            })
+                          }
+                        >
+                          Editar
+                        </Button>
+                      </div>
+                    </div>
+                  );
                 })}
               </div>
             )}

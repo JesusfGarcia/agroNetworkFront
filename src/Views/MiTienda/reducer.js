@@ -18,6 +18,7 @@ export const reducer = (state, action) => {
         loading: true,
       };
     case actions.getProductsSuccess:
+      console.log(action.payload);
       return {
         ...state,
         myProducts: action.payload,
@@ -33,6 +34,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         loadingForm: true,
+        textButton: "Procesando...",
       };
     case actions.saveProductSuccess:
       return {
@@ -41,16 +43,35 @@ export const reducer = (state, action) => {
         reload: !state.reload,
         product: initialState.product,
         open: false,
+        isImageChanged: false,
+        edit: false,
+        textButton: "Publicar",
       };
     case actions.saveProductError:
       return {
         ...state,
         loadingForm: false,
+        textButton: "Publicar",
       };
     case actions.setOpen:
       return {
         ...state,
         open: !state.open,
+        edit: false,
+        isImageChanged: false,
+        product: initialState.product,
+      };
+    case actions.editProduct:
+      return {
+        ...state,
+        open: !state.open,
+        product: action.payload,
+        edit: true,
+      };
+    case actions.changeImage:
+      return {
+        ...state,
+        isImageChanged: true,
       };
     default:
       return state;

@@ -7,4 +7,6 @@ export const actions = {
   saveProductSuccess: "SAVE_PRODUCT_SUCCESS",
   saveProductError: "SAVE_PRODUCT_ERROR",
   setOpen: "SET_OPEN",
+  editProduct: "EDIT_PRODUCT",
+  changeImage: "CHANGE_IMAGE",
 };
