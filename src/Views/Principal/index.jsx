@@ -58,7 +58,11 @@ export default function Principal() {
           }}
         >
           {state.products.map((item, idx) => {
-            return <ProductItem item={item} key={idx} />;
+            return (
+              <div>
+                <ProductItem item={item} key={idx} />
+              </div>
+            );
           })}
         </div>
       )}

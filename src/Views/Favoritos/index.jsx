@@ -59,10 +59,12 @@ export default function Favoritos() {
         >
           {state.products.map((item, idx) => {
             return (
-              <ProductItem
-                item={{ ...item.offer, isFavorite: true }}
-                key={idx}
-              />
+              <div>
+                <ProductItem
+                  item={{ ...item.offer, isFavorite: true }}
+                  key={idx}
+                />
+              </div>
             );
           })}
         </div>

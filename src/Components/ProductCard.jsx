@@ -88,6 +88,13 @@ export default function ProductCard({ item }) {
       }
     }
   };
+
+  /*
+    <Avatar
+            aria-label="recipe"
+            src={`${APIURL}${item.user.img}`}
+    ></Avatar>     
+  */
   return (
     <Card style={{ width: "600px", marginTop: "20px" }}>
       <CardHeader
@@ -102,7 +109,7 @@ export default function ProductCard({ item }) {
       />
       <CardContent>
         <Typography variant="body1" color="textSecondary" component="p">
-          {`${item.description} \n se hace ${item.typeTransaction} por ${item.unitMeasurement}`}
+          {`${item.description} \n se hace ${item.typeTransaction} a $${item.priceUnit} el ${item.unitMeasurement}`}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
