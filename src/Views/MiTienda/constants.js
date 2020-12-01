@@ -1,4 +1,6 @@
 export const initialState = {
+  myProducts: [],
+  loading: false,
   product: {
     name: "",
     typeTransaction: "COMPRA",
@@ -10,4 +12,7 @@ export const initialState = {
     stock: 0,
     images: [],
   },
+  loadingForm: false,
+  reload: false,
+  open: false,
 };

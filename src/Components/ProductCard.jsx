@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductCard({ item }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [fav, setFav] = React.useState(false);
+  const [fav, setFav] = React.useState(item.isFavorite);
   const [textComment, setTextComment] = React.useState("");
 
   const handleExpandClick = () => {
@@ -71,7 +71,8 @@ export default function ProductCard({ item }) {
         console.log(data);
         setFav(true);
       } catch (error) {
-        alert("Ocurrió un error al hacer el comentario");
+        console.log(error);
+        alert("Ocurrió un error al darle like");
       }
     } else {
       try {
@@ -82,7 +83,8 @@ export default function ProductCard({ item }) {
         console.log(data);
         setFav(false);
       } catch (error) {
-        alert("Ocurrió un error al hacer el comentario");
+        console.log(error);
+        alert("Ocurrió un error al darle like xd");
       }
     }
   };

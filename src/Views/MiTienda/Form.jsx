@@ -16,7 +16,7 @@ import { StoreContext } from "./index";
 import { actions } from "./actions";
 
 export default function FormMiTienda() {
-  const { open, setOpen, state, dispatch } = React.useContext(StoreContext);
+  const { state, dispatch, CrearOferta } = React.useContext(StoreContext);
 
   const setForm = (e) => {
     const { name, value } = e.target;
@@ -27,10 +27,25 @@ export default function FormMiTienda() {
     dispatch({ type: actions.setProduct, name, payload: value });
   };
 
+  const setPhoto = (e) => {
+    let reader = new FileReader();
+
+    reader.onload = function (e) {
+      let filePreview = e.target.result;
+      dispatch({
+        type: actions.setProduct,
+        name: "images",
+        payload: [filePreview],
+      });
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
   return (
     <Dialog
-      open={open}
-      onClose={() => setOpen(false)}
+      open={state.open}
+      onClose={() => dispatch({ type: actions.setOpen })}
       aria-labelledby="form-dialog-title"
     >
       <DialogTitle id="form-dialog-title">Productos y Servicios</DialogTitle>
@@ -150,12 +165,24 @@ export default function FormMiTienda() {
           type="text"
           fullWidth
         />
+        <div className="imgContainer">
+          <img
+            className="image"
+            src={state.product.images[0]}
+            alt="Sin imagen seleccionada"
+          />
+          <label for="nuestroinput">Subir Imagen</label>
+          <input onChange={setPhoto} name="img" type="file" id="nuestroinput" />
+        </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setOpen(false)} color="primary">
+        <Button
+          onClick={() => dispatch({ type: actions.setOpen })}
+          color="primary"
+        >
           Cancelar
         </Button>
-        <Button onClick={() => setOpen(false)} color="primary">
+        <Button onClick={CrearOferta} color="primary">
           Publicar
         </Button>
       </DialogActions>

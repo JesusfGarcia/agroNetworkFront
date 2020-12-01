@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Typography, Button } from "@material-ui/core";
+import { Typography, CircularProgress } from "@material-ui/core";
 
 import DsContainer from "../../Components/DsContainer";
 import HeaderPart from "../../Components/HeaderPart";
@@ -30,6 +30,7 @@ export default function Principal() {
     };
     getProductList();
   }, []);
+
   return (
     <DsContainer>
       <HeaderPart>
@@ -37,9 +38,29 @@ export default function Principal() {
           AgroNetwork
         </Typography>
       </HeaderPart>
-      {state.products.map((item, idx) => {
-        return <ProductItem item={item} key={idx} />;
-      })}
+      {state.loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          {state.products.map((item, idx) => {
+            return <ProductItem item={item} key={idx} />;
+          })}
+        </div>
+      )}
     </DsContainer>
   );
 }
